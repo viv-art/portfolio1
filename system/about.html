@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="portfolio2.css">
+    <link rel="stylesheet" href="about.css">
+    <title>Responsive Header</title>
+
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div id="pageContent" class="logo">
+                <img src="vivi.jpeg" alt="My Photo">
+                <h1>Vivvianokpara.Dev</h1>
+            </div>
+
+
+
+            <nav class="nav" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html" class="active">About</a>
+                <a href="project.html">Project</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+
+            <button class="menu-btn" id="menu-btn">&#9776;</button>
+        </div>
+
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="project.html">Project</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </header>
+    <div class="page-body">
+        <div class="overlay"></div>
+
+        <div class="about-1">
+            <img src="vivi.jpeg">
+
+            <div class="about-2">
+                <h1><span>Vivian Chigozie Okpara</span></h1>
+                <h2>A passionate Junior Frontend Developer</h2>
+                <p>
+                    With a creative eye and a
+                    strong foundation in <span>HTML, CSS, and JavaScript.</span>
+                    I love turning ideas into responsive and user-friendly web experiences. Whether it's building clean
+                    interfaces or adding interactive features, I enjoy crafting digital products that are both
+                    functional
+                    and beautiful.
+
+                    I’m constantly learning and exploring new technologies to stay ahead in this fast-paced
+                    industry.</p>
+                <p>
+                    From mastering frontend frameworks to understanding the subtle art of UI/UX, I thrive on challenges
+                    that push my growth.
+
+                    When I’m not coding, I’m probably sketching out interface ideas, exploring design inspiration, or
+                    studying how great websites are built. My long-term goal is to create digital solutions that not
+                    only look good but make a real difference.
+                    Let's build something amazing together-pixel by pixel, idea by idea.
+                </p>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+    <script>
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("open");
+
+            // Toggle icon
+            if (mobileMenu.classList.contains("open")) {
+                menuBtn.innerHTML = "&times;"; // Close icon
+            } else {
+                menuBtn.innerHTML = "&#9776;"; // Hamburger icon
+            }
+        });
+
+        const myUniqueButton = document.querySelector('.animated-button1');
+        const myUniqueVideoCon = document.querySelector('.video-con');
+
+        // Unique personalized variable for drag state
+        let isMyVideoDragging = false;
+        let startX, scrollLeft;
+
+        // Show the button when the mouse enters the video container
+        myUniqueVideoCon.addEventListener('mouseenter', () => {
+            myUniqueButton.style.display = 'block'; // Show the button
+        });
+
+        // Hide the button when the mouse leaves the video container
+        myUniqueVideoCon.addEventListener('mouseleave', () => {
+            myUniqueButton.style.display = 'none'; // Hide the button
+        });
+
+        // Move the button to follow the cursor inside the video container
+        myUniqueVideoCon.addEventListener('mousemove', (event) => {
+            if (isMyVideoDragging) return; // Do not move the button while dragging
+
+            const containerRect = myUniqueVideoCon.getBoundingClientRect();
+            const cursorX = event.clientX - containerRect.left;
+            const cursorY = event.clientY - containerRect.top;
+
+            const buttonWidth = myUniqueButton.offsetWidth;
+            const buttonHeight = myUniqueButton.offsetHeight;
+
+            // Position the button at the cursor while staying within the container bounds
+            const maxX = containerRect.width - buttonWidth;
+            const maxY = containerRect.height - buttonHeight;
+
+            // Keep the button within the container, even when scrolling
+            const newX = Math.min(Math.max(cursorX - buttonWidth / 2, 0), maxX);
+            const newY = Math.min(Math.max(cursorY - buttonHeight / 2, 0), maxY);
+
+            myUniqueButton.style.left = `${newX + myUniqueVideoCon.scrollLeft}px`; // Account for scroll position
+            myUniqueButton.style.top = `${newY + myUniqueVideoCon.scrollTop}px`; // Account for scroll position
+        });
+
+        // Drag-to-Scroll functionality for video container
+        myUniqueVideoCon.addEventListener('mousedown', (event) => {
+            isMyVideoDragging = true;
+            startX = event.pageX - myUniqueVideoCon.offsetLeft;
+            scrollLeft = myUniqueVideoCon.scrollLeft;
+            myUniqueVideoCon.style.cursor = 'grabbing'; // Change cursor style
+        });
+
+        myUniqueVideoCon.addEventListener('mousemove', (event) => {
+            if (!isMyVideoDragging) return;
+
+            event.preventDefault();
+            const x = event.pageX - myUniqueVideoCon.offsetLeft;
+            const walk = x - startX; // Distance dragged
+            myUniqueVideoCon.scrollLeft = scrollLeft - walk;
+        });
+
+        myUniqueVideoCon.addEventListener('mouseup', () => {
+            isMyVideoDragging = false;
+            myUniqueVideoCon.style.cursor = 'default'; // Reset cursor style
+        });
+
+        myUniqueVideoCon.addEventListener('mouseleave', () => {
+            isMyVideoDragging = false;
+            myUniqueVideoCon.style.cursor = 'default'; // Reset cursor style
+        });
+
+        const modal = document.getElementById("myModal");
+        const fullImage = document.getElementById("fullImage");
+        const pageContent = document.getElementById("pageContent");
+        const description = document.getElementById("description");
+
+        function openModal() {
+            modal.style.display = "flex";
+            fullImage.src = document.querySelector(".thumbnail").src;
+            pageContent.classList.add("blur");
+            description.classList.remove("expanded");
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+            pageContent.classList.remove("blur");
+        }
+
+        function toggleDescription() {
+            description.classList.toggle("expanded");
+        }
+
+
+    </script>
+
+</body>
+
+</html>

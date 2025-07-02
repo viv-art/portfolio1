@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="portfolio2.css">
+    <title>Responsive Header</title>
+
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div id="pageContent" class="logo">
+                <img src="vivi.jpeg" alt="My Photo" class="thumbnail" onclick="openModal()">
+                <h1>Vivvianokpara.Dev</h1>
+            </div>
+
+
+            <div id="myModal" class="modal">
+                <div class="close-btn" onclick="closeModal()">×</div>
+                <div class="modal-inner">
+                    <img id="fullImage" class="modal-content" />
+                    <div id="description" class="description" onclick="toggleDescription()">
+                        <p>Name: Vivian Chigozie Okpara</p>
+                        <p>Skill: Frontend developer</p>
+                        <p>Language: in HTML, CSS AND Javascript</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="nav" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="project.html">Project</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+
+            <button class="menu-btn" id="menu-btn">&#9776;</button>
+        </div>
+
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="project.html">Project</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </header>
+
+
+
+    <div id="moving-text">
+        <div class="text-wrapper">
+            <div class="text1">
+
+                <h1>FRONT-END </h1>
+
+                <h1> DEVELOPER</h1>
+                <h1>...</h1>
+
+            </div>
+
+            <div class="text1">
+
+                <h1>FRONT-END </h1>
+
+                <h1> DEVELOPER</h1>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="main2">
+
+        <div class="video-con">
+
+            <div class="video-container ">
+                <div class="videos video1 ">
+                    <video src="brand.mov" autoplay muted loop></video>
+
+                    <video src="202412151835 (1).mp4" autoplay muted loop></video>
+
+                    <video src="bylux.mov" autoplay muted loop></video>
+
+                    <video src="codixel.mov" autoplay muted loop></video>
+
+                    <video src="brand.mov" autoplay muted loop></video>
+
+
+
+                </div>
+
+            </div>
+            <button class="animated-button1">
+                <div class="flex-but">
+                    <div class="but">
+                        <i class='bx bx-left-arrow-alt'></i>
+                        <i class='bx bx-right-arrow-alt'></i>
+                    </div>
+                    <p>Drag</p>
+                </div>
+            </button>
+        </div>
+
+    </div>
+
+
+    <script>
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("open");
+
+
+            if (mobileMenu.classList.contains("open")) {
+                menuBtn.innerHTML = "&times;";
+            } else {
+                menuBtn.innerHTML = "&#9776;";
+            }
+        });
+
+        const myUniqueButton = document.querySelector('.animated-button1');
+        const myUniqueVideoCon = document.querySelector('.video-con');
+
+
+        let isMyVideoDragging = false;
+        let startX, scrollLeft;
+
+
+        myUniqueVideoCon.addEventListener('mouseenter', () => {
+            myUniqueButton.style.display = 'block';
+        });
+
+
+        myUniqueVideoCon.addEventListener('mouseleave', () => {
+            myUniqueButton.style.display = 'none';
+        });
+
+
+        myUniqueVideoCon.addEventListener('mousemove', (event) => {
+            if (isMyVideoDragging) return;
+
+            const containerRect = myUniqueVideoCon.getBoundingClientRect();
+            const cursorX = event.clientX - containerRect.left;
+            const cursorY = event.clientY - containerRect.top;
+
+            const buttonWidth = myUniqueButton.offsetWidth;
+            const buttonHeight = myUniqueButton.offsetHeight;
+
+
+            const maxX = containerRect.width - buttonWidth;
+            const maxY = containerRect.height - buttonHeight;
+
+
+            const newX = Math.min(Math.max(cursorX - buttonWidth / 2, 0), maxX);
+            const newY = Math.min(Math.max(cursorY - buttonHeight / 2, 0), maxY);
+
+            myUniqueButton.style.left = `${newX + myUniqueVideoCon.scrollLeft}px`;
+            myUniqueButton.style.top = `${newY + myUniqueVideoCon.scrollTop}px`;
+        });
+
+
+        myUniqueVideoCon.addEventListener('mousedown', (event) => {
+            isMyVideoDragging = true;
+            startX = event.pageX - myUniqueVideoCon.offsetLeft;
+            scrollLeft = myUniqueVideoCon.scrollLeft;
+            myUniqueVideoCon.style.cursor = 'grabbing';
+        });
+
+        myUniqueVideoCon.addEventListener('mousemove', (event) => {
+            if (!isMyVideoDragging) return;
+
+            event.preventDefault();
+            const x = event.pageX - myUniqueVideoCon.offsetLeft;
+            const walk = x - startX;
+            myUniqueVideoCon.scrollLeft = scrollLeft - walk;
+        });
+
+        myUniqueVideoCon.addEventListener('mouseup', () => {
+            isMyVideoDragging = false;
+            myUniqueVideoCon.style.cursor = 'default';
+        });
+
+        myUniqueVideoCon.addEventListener('mouseleave', () => {
+            isMyVideoDragging = false;
+            myUniqueVideoCon.style.cursor = 'default';
+        });
+
+        const modal = document.getElementById("myModal");
+        const fullImage = document.getElementById("fullImage");
+        const pageContent = document.getElementById("pageContent");
+        const description = document.getElementById("description");
+
+        function openModal() {
+            modal.style.display = "flex";
+            fullImage.src = document.querySelector(".thumbnail").src;
+            pageContent.classList.add("blur");
+            description.classList.remove("expanded");
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+            pageContent.classList.remove("blur");
+        }
+
+        function toggleDescription() {
+            description.classList.toggle("expanded");
+        }
+
+
+    </script>
+
+</body>
+
+</html>
