@@ -282,7 +282,7 @@ body {
 }
 
 
-.video1 video {
+.video1 img {
     width: 450px;
     height: 280px;
     border-radius: 17px;
@@ -632,7 +632,7 @@ body {
         text-decoration: underline;
     }
 
-    .video1 video {
+    .video1 img {
         width: 420px;
         height: 320px;
         border-radius: 17px;
@@ -694,7 +694,7 @@ body {
         text-decoration: underline;
     }
 
-    .video1 video {
+    .video1 img {
         width: 400px;
         height: 300px;
         border-radius: 17px;
@@ -775,7 +775,7 @@ body {
         text-decoration: underline;
     }
 
-    .video1 video {
+    .video1 img {
         width: 380px;
         height: 280px;
         border-radius: 17px;
